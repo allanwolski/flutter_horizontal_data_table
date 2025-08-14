@@ -360,27 +360,24 @@ class _HorizontalDataTableState extends State<HorizontalDataTable> {
 
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: widget.enableRTL ? TextDirection.rtl : TextDirection.ltr,
-      child: ChangeNotifierProvider<ScrollShadowModel>(
-        create: (context) => _scrollShadowModel,
-        child: SafeArea(
-          child: LayoutBuilder(
-            builder: (context, boxConstraint) {
-              late double maxHeight;
-              if (widget.tableHeight != null) {
-                maxHeight = (boxConstraint.maxHeight > widget.tableHeight!
-                    ? widget.tableHeight
-                    : boxConstraint.maxHeight)!;
-              } else {
-                maxHeight = boxConstraint.maxHeight;
-              }
-              return _getParallelListView(
-                boxConstraint.maxWidth,
-                maxHeight,
-              );
-            },
-          ),
+    return ChangeNotifierProvider<ScrollShadowModel>(
+      create: (context) => _scrollShadowModel,
+      child: Flexible(
+        child: LayoutBuilder(
+          builder: (context, boxConstraint) {
+            late double maxHeight;
+            if (widget.tableHeight != null) {
+              maxHeight = (boxConstraint.maxHeight > widget.tableHeight!
+                  ? widget.tableHeight
+                  : boxConstraint.maxHeight)!;
+            } else {
+              maxHeight = boxConstraint.maxHeight;
+            }
+            return _getParallelListView(
+              boxConstraint.maxWidth,
+              maxHeight,
+            );
+          },
         ),
       ),
     );
