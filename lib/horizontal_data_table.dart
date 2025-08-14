@@ -510,31 +510,31 @@ class _HorizontalDataTableState extends State<HorizontalDataTable> {
             },
           ),
         ),
-        LayoutId(
-          id: ListViewLayout.FooterShadow,
-          child: Selector<ScrollShadowModel, double>(
-            selector: (context, scrollShadowModel) {
-              return scrollShadowModel.verticalOffset;
-            },
-            builder: (context, verticalOffset, child) {
-              double elevation = 0;
-              if (_tableControllers
-                  .fixedSideListViewScrollController.positions.isNotEmpty) {
-                elevation = ScrollShadowModel.getElevation(
-                    _tableControllers.fixedSideListViewScrollController.position
-                            .maxScrollExtent -
-                        verticalOffset,
-                    widget.elevation);
-              }
-              return Container(
-                color: widget.elevationColor.withAlpha(
-                    ScrollShadowModel.getShadowAlpha(
-                        elevation, widget.elevation)),
-                height: elevation,
-              );
-            },
-          ),
-        ),
+        // LayoutId(
+        //   id: ListViewLayout.FooterShadow,
+        //   child: Selector<ScrollShadowModel, double>(
+        //     selector: (context, scrollShadowModel) {
+        //       return scrollShadowModel.verticalOffset;
+        //     },
+        //     builder: (context, verticalOffset, child) {
+        //       double elevation = 0;
+        //       if (_tableControllers
+        //           .fixedSideListViewScrollController.positions.isNotEmpty) {
+        //         elevation = ScrollShadowModel.getElevation(
+        //             _tableControllers.fixedSideListViewScrollController.position
+        //                     .maxScrollExtent -
+        //                 verticalOffset,
+        //             widget.elevation);
+        //       }
+        //       return Container(
+        //         color: widget.elevationColor.withAlpha(
+        //             ScrollShadowModel.getShadowAlpha(
+        //                 elevation, widget.elevation)),
+        //         height: elevation,
+        //       );
+        //     },
+        //   ),
+        // ),
       ],
     );
   }
