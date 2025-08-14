@@ -714,81 +714,22 @@ class _HorizontalDataTableState extends State<HorizontalDataTable> {
       IndexedWidgetBuilder? indexedWidgetBuilder,
       int itemCount,
       [List<Widget>? children]) {
-    return SmartRefresher(
-      controller: _tableControllers.bidirectionalSideRefreshController,
-      enablePullDown: widget.enablePullToRefresh,
-      enablePullUp: widget.enablePullToLoadNewData,
-      onRefresh: () async {
-        if (widget.onRefresh != null) {
-          widget.htdRefreshController?.requestRefresh(
-              _tableControllers.bidirectionalSideRefreshController);
-
-          /// i have no choice, since the status of load and refresh not so reliable
-          /// the 100ms is for
-          /// [1] waiting the 50ms of pull-to-refresh package nestscrollview handling
-          /// [2] ensure 2 refresh controller status is stable
-          await Future.delayed(const Duration(milliseconds: 100), () {
-            widget.onRefresh!();
-          });
-        }
-      },
-      onLoading: () async {
-        if (widget.onLoad != null) {
-          widget.htdRefreshController?.requestLoading(
-              _tableControllers.bidirectionalSideRefreshController);
-
-          /// same reason as the onRefresh 100ms delay
-          await Future.delayed(const Duration(milliseconds: 100), () {
-            widget.onLoad!();
-          });
-        }
-      },
-      header: widget.refreshIndicator,
-      footer: widget.loadIndicator,
-      child: _getListView(
-        scrollController,
-        indexedWidgetBuilder,
-        itemCount,
-        children,
-      ),
+    return _getListView(
+      scrollController,
+      indexedWidgetBuilder,
+      itemCount,
+      children,
     );
   }
 
   Widget _getPullToRefreshFixedSideListView(ScrollController scrollController,
       IndexedWidgetBuilder? indexedWidgetBuilder, int itemCount,
       [List<Widget>? children]) {
-    return SmartRefresher(
-      controller: _tableControllers.fixedSideRefreshController,
-      enablePullDown: widget.enablePullToRefresh,
-      enablePullUp: widget.enablePullToLoadNewData,
-      header: widget.fixedSidePlaceHolderRefreshIndicator ??
-          PlaceholderHeader(
-            height: widget.refreshIndicatorHeight,
-          ),
-      footer: widget.fixedSidePlaceHolderLoadIndicator ??
-          PlaceholderFooter(
-            height: widget.loadIndicator?.height ?? 60.0,
-          ),
-      onRefresh: () {
-        if (widget.onRefresh != null) {
-          widget.htdRefreshController?.requestRefresh(
-            _tableControllers.fixedSideRefreshController,
-          );
-        }
-      },
-      onLoading: () {
-        if (widget.onLoad != null) {
-          widget.htdRefreshController?.requestLoading(
-            _tableControllers.fixedSideRefreshController,
-          );
-        }
-      },
-      child: _getListView(
-        scrollController,
-        indexedWidgetBuilder,
-        itemCount,
-        children,
-      ),
+    return _getListView(
+      scrollController,
+      indexedWidgetBuilder,
+      itemCount,
+      children,
     );
   }
 }
