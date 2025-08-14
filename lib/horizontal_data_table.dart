@@ -680,6 +680,7 @@ class _HorizontalDataTableState extends State<HorizontalDataTable> {
       [List<Widget>? children]) {
     if (indexedWidgetBuilder != null) {
       return ListView.builder(
+        shrinkWrap: true,
         physics: widget.scrollPhysics,
         controller: scrollController,
         itemBuilder: (context, index) {
@@ -695,6 +696,7 @@ class _HorizontalDataTableState extends State<HorizontalDataTable> {
       );
     } else {
       return ListView.builder(
+        shrinkWrap: true,
         physics: widget.scrollPhysics,
         controller: scrollController,
         itemCount: children?.length,
